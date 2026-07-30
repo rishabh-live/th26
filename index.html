@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Thailand Travel Master 2026</title>
+  
+  <!-- iOS / Apple Web App Capabilities -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Thailand 2026">
+  <meta name="theme-color" content="#0f172a">
+
+  <!-- Tailwind CSS & Google Fonts -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] },
+          colors: {
+            brand: {
+              50: '#f0f9ff', 100: '#e0f2fe', 500: '#0ea5e9', 600: '#0284c7', 700: '#0369a1', 900: '#0c4a6e'
+            },
+            accent: { 500: '#10b981', 600: '#059669' }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+      padding-bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px));
+      padding-top: env(safe-area-inset-top, 0px);
+    }
+    
+    .glass-card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(226, 232, 240, 0.8);
+    }
+
+    .glass-dark {
+      background: rgba(15, 23, 42, 0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .floating-dock {
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.2);
+    }
+
+    .scrollbar-none::-webkit-scrollbar { display: none; }
+    .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
+
+    #toast {
+      visibility: hidden;
+      min-width: 200px;
+      background-color: #0f172a;
+      color: #fff;
+      text-align: center;
+      border-radius: 9999px;
+      padding: 10px 18px;
+      position: fixed;
+      z-index: 100;
+      left: 50%;
+      bottom: calc(5rem + env(safe-area-inset-bottom, 0px));
+      transform: translateX(-50%);
+      font-size: 12px;
+      font-weight: 600;
+      opacity: 0;
+      transition: opacity 0.3s, visibility 0.3s;
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3);
+    }
+
+    #toast.show {
+      visibility: visible;
+      opacity: 1;
+    }
+  </style>
+</head>
+<body class="bg-slate-900 text-slate-800 min-h-screen antialiased selection:bg-brand-500 selection:text-white">
+
+  <!-- HEADER -->
+  <header class="bg-slate-900 text-white p-4 sticky top-0 z-40 border-b border-slate-800 shadow-lg">
+    <div class="max-w-md mx-auto flex items-center justify-between">
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-black uppercase tracking-wider text-brand-400">Thailand Trip 2026</span>
+          <span id="net-status" class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[9px] font-extrabold px-2 py-0.5 rounded-full">
+            🟢 Online
+          </span>
+        </div>
+        <h1 class="text-lg font-extrabold text-white leading-tight">Rishabh & Mandeep Hub</h1>
+      </div>
+      
+      <!-- Countdown Badge -->
+      <div class="bg-slate-800/90 border border-slate-700/80 px-3 py-1.5 rounded-2xl text-right">
+        <div class="text-[9px] text-slate-400 uppercase font-bold tracking-wider">Flight In</div>
+        <div id="countdown-timer" class="text-xs font-black text-brand-400">--d --h</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN APP CONTENT CONTAINER -->
+  <main class="max-w-md mx-auto p-4 space-y-4">
+
+    <!-- TAB 1: FLIGHT & OVERVIEW -->
+    <div id="tab-flight" class="tab-content space-y-4">
+      
+      <!-- Flight Boarding Pass Card -->
+      <div class="bg-gradient-to-br from-brand-700 via-brand-600 to-indigo-800 text-white rounded-3xl p-5 shadow-xl relative overflow-hidden">
+        <div class="absolute -right-8 -bottom-8 w-32 h-32 bg-white/10 rounded-full blur-xl pointer-events-none"></div>
+
+        <div class="flex justify-between items-start mb-4">
+          <div>
+            <span class="bg-white/20 text-white text-[10px] font-bold px-2.5 py-1 rounded-full border border-white/20">IndiGo Confirmed</span>
+            <div class="text-xs text-brand-100 font-medium mt-1">2 Aug – 10 Aug 2026 (8N / 9D)</div>
+          </div>
+          <button onclick="copyPNR()" class="bg-white text-slate-900 font-extrabold text-[10px] px-3 py-1.5 rounded-xl shadow hover:bg-brand-50 transition-all flex items-center gap-1 active:scale-95">
+            <span>PNR: 18Z1HC</span>
+            <svg class="w-3 h-3 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+          </button>
+        </div>
+
+        <!-- Outbound Flight -->
+        <div class="bg-white/10 backdrop-blur-md rounded-2xl p-3 border border-white/10 mb-3">
+          <div class="flex justify-between items-center text-xs font-semibold mb-1 text-brand-100">
+            <span>Outbound Flight (6E 1059)</span>
+            <span>Sun, 02 Aug 2026</span>
+          </div>
+          <div class="flex justify-between items-center my-2">
+            <div>
+              <div class="text-2xl font-black">13:05</div>
+              <div class="text-[10px] text-brand-200">Mumbai (BOM - T2)</div>
+            </div>
+            <div class="text-center px-2">
+              <div class="text-[10px] font-bold text-brand-200">4h 40m</div>
+              <div class="text-brand-300">✈️ ─── ✈️</div>
+            </div>
+            <div class="text-right">
+              <div class="text-2xl font-black">19:15</div>
+              <div class="text-[10px] text-brand-200">Bangkok (BKK)</div>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-2 text-[10px] pt-2 border-t border-white/10">
+            <div><strong>Rishabh:</strong> Seat 8F (Window)</div>
+            <div><strong>Mandeep:</strong> Seat 8E (Middle)</div>
+          </div>
+        </div>
+
+        <!-- Return Flight -->
+        <div class="bg-white/10 backdrop-blur-md rounded-2xl p-3 border border-white/10">
+          <div class="flex justify-between items-center text-xs font-semibold mb-1 text-brand-100">
+            <span>Return Flight (6E 1604)</span>
+            <span>Mon, 10 Aug 2026</span>
+          </div>
+          <div class="flex justify-between items-center my-2">
+            <div>
+              <div class="text-2xl font-black">13:50</div>
+              <div class="text-[10px] text-brand-200">Bangkok (BKK)</div>
+            </div>
+            <div class="text-center px-2">
+              <div class="text-[10px] font-bold text-brand-200">4h 50m</div>
+              <div class="text-brand-300">✈️ ─── ✈️</div>
+            </div>
+            <div class="text-right">
+              <div class="text-2xl font-black">17:10</div>
+              <div class="text-[10px] text-brand-200">Mumbai (BOM - T2)</div>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-2 text-[10px] pt-2 border-t border-white/10">
+            <div><strong>Rishabh:</strong> Seat 6F (Window)</div>
+            <div><strong>Mandeep:</strong> Seat 6E (Middle)</div>
+          </div>
+        </div>
+
+        <!-- Baggage Policy Alert -->
+        <div class="mt-3 bg-amber-500/20 border border-amber-400/30 rounded-xl p-2.5 text-[11px] text-amber-100 flex items-center gap-2">
+          <span class="text-base">🧳</span>
+          <div>
+            <strong>Baggage Limits:</strong> Check-in 20kg/person | Cabin 7kg (1 bag up to 115cm). <em>Power banks in cabin only!</em>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Action Buttons -->
+      <div class="grid grid-cols-2 gap-3">
+        <button onclick="openCurrencyModal()" class="glass-card p-3.5 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-3 active:scale-95 transition-all text-left">
+          <div class="w-10 h-10 bg-emerald-100 text-emerald-700 rounded-xl flex items-center justify-center font-bold text-lg">🔱</div>
+          <div>
+            <div class="font-extrabold text-xs text-slate-800">THB ⇄ INR Calc</div>
+            <div class="text-[10px] text-slate-500">Live FX Converter</div>
+          </div>
+        </button>
+
+        <a href="https://www.google.com/maps" target="_blank" class="glass-card p-3.5 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-3 active:scale-95 transition-all text-left">
+          <div class="w-10 h-10 bg-sky-100 text-sky-700 rounded-xl flex items-center justify-center font-bold text-lg">📍</div>
+          <div>
+            <div class="font-extrabold text-xs text-slate-800">Google Maps</div>
+            <div class="text-[10px] text-slate-500">Offline Pin Navigation</div>
+          </div>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- TAB 2: DETAILED 9-DAY SCHEDULE TIMELINE -->
+    <div id="tab-timeline" class="tab-content hidden space-y-3">
+      <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm flex justify-between items-center">
+        <div>
+          <h2 class="font-extrabold text-sm text-slate-800">Master Route Itinerary</h2>
+          <p class="text-[11px] text-slate-500">Bangkok ➔ Kanchanaburi ➔ Suan Phueng ➔ Amphawa ➔ Bangkok</p>
+        </div>
+        <button onclick="toggleAllDays()" class="text-xs font-bold text-brand-600 bg-brand-50 px-2.5 py-1 rounded-lg border border-brand-200">Toggle All</button>
+      </div>
+
+      <!-- Day Cards Accordion Container -->
+      <div id="timeline-accordion-container" class="space-y-3">
+        <!-- Injected dynamically via JS -->
+      </div>
+    </div>
+
+    <!-- TAB 3: UNEXPLORED & OFFBEAT DESTINATIONS HUB -->
+    <div id="tab-maps" class="tab-content hidden space-y-4">
+      
+      <!-- Filter Bar -->
+      <div class="bg-white rounded-2xl p-3 border border-slate-200 shadow-sm space-y-2">
+        <input type="text" id="dest-search" oninput="filterDestinations()" placeholder="🔍 Search spots (e.g. Erawan, Banyan root, Hot springs)..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-brand-500">
+        
+        <div class="flex gap-1.5 overflow-x-auto pb-1 scrollbar-none text-[11px]">
+          <button onclick="setDestFilter('all')" class="dest-filter-btn active bg-brand-600 text-white font-bold px-3 py-1 rounded-full whitespace-nowrap">All Spots</button>
+          <button onclick="setDestFilter('offbeat')" class="dest-filter-btn bg-slate-100 text-slate-600 font-semibold px-3 py-1 rounded-full whitespace-nowrap">✨ Offbeat Gems</button>
+          <button onclick="setDestFilter('Bangkok')" class="dest-filter-btn bg-slate-100 text-slate-600 font-semibold px-3 py-1 rounded-full whitespace-nowrap">Bangkok</button>
+          <button onclick="setDestFilter('Kanchanaburi')" class="dest-filter-btn bg-slate-100 text-slate-600 font-semibold px-3 py-1 rounded-full whitespace-nowrap">Kanchanaburi</button>
+          <button onclick="setDestFilter('Suan Phueng')" class="dest-filter-btn bg-slate-100 text-slate-600 font-semibold px-3 py-1 rounded-full whitespace-nowrap">Suan Phueng</button>
+          <button onclick="setDestFilter('Amphawa')" class="dest-filter-btn bg-slate-100 text-slate-600 font-semibold px-3 py-1 rounded-full whitespace-nowrap">Amphawa</button>
+        </div>
+      </div>
+
+      <!-- Destination Cards List -->
+      <div id="destination-cards-list" class="space-y-3">
+        <!-- Dynamically rendered via JS -->
+      </div>
+    </div>
+
+    <!-- TAB 4: GEMINI AI ASSISTANT, SPEECH & VISION -->
+    <div id="tab-ai" class="tab-content hidden space-y-4">
+      
+      <!-- AI Header Pill Card -->
+      <div class="bg-gradient-to-r from-purple-900 via-slate-900 to-indigo-900 text-white rounded-2xl p-4 shadow-md border border-purple-500/30">
+        <div class="flex items-center gap-2 mb-1">
+          <span class="bg-purple-500/30 text-purple-200 text-[10px] font-bold px-2.5 py-0.5 rounded-full border border-purple-400/40 animate-pulse">✨ Powered by Gemini AI</span>
+        </div>
+        <h2 class="text-base font-extrabold text-white">Thailand AI Concierge</h2>
+        <p class="text-xs text-purple-200/80">Real-time local recommendations, Thai voice generator & menu scanner.</p>
+
+        <!-- Sub Tab Navigation -->
+        <div class="grid grid-cols-3 gap-1.5 mt-3 pt-2 border-t border-white/10 text-center">
+          <button onclick="switchAiSubTab('ai-concierge')" id="ai-tab-btn-concierge" class="ai-sub-btn bg-white/20 text-white text-[11px] font-bold py-1.5 rounded-lg border border-white/20 transition-all">🤖 Concierge</button>
+          <button onclick="switchAiSubTab('ai-translator')" id="ai-tab-btn-translator" class="ai-sub-btn bg-white/10 hover:bg-white/20 text-purple-200 text-[11px] font-semibold py-1.5 rounded-lg transition-all">🗣️ Speech TTS</button>
+          <button onclick="switchAiSubTab('ai-scanner')" id="ai-tab-btn-scanner" class="ai-sub-btn bg-white/10 hover:bg-white/20 text-purple-200 text-[11px] font-semibold py-1.5 rounded-lg transition-all">📸 Menu Reader</button>
+        </div>
+      </div>
+
+      <!-- SUB-TAB 1: AI CONCIERGE CHAT WITH SEARCH GROUNDING -->
+      <div id="ai-concierge" class="ai-sub-content space-y-3">
+        <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm">
+          <h3 class="font-extrabold text-slate-800 text-sm mb-1 flex items-center gap-2"><span>🤖</span> Ask Thailand AI Assistant</h3>
+          <p class="text-xs text-slate-500 mb-3">Ask about street food stalls, scam warnings, or backup plans.</p>
+
+          <!-- Preset Prompt Chips -->
+          <div class="flex gap-1.5 overflow-x-auto pb-2 mb-3 scrollbar-none">
+            <button onclick="setAiPrompt('What are top 3 secret street food stalls in Jodd Fairs Bangkok?')" class="bg-purple-50 text-purple-700 hover:bg-purple-100 border border-purple-200 text-[10px] font-bold px-2.5 py-1 rounded-full whitespace-nowrap">🍢 Jodd Fairs Food</button>
+            <button onclick="setAiPrompt('What to do in Kanchanaburi if it rains in August?')" class="bg-purple-50 text-purple-700 hover:bg-purple-100 border border-purple-200 text-[10px] font-bold px-2.5 py-1 rounded-full whitespace-nowrap">🌧️ Rain Backup</button>
+            <button onclick="setAiPrompt('How to avoid tuk tuk scams in Bangkok?')" class="bg-purple-50 text-purple-700 hover:bg-purple-100 border border-purple-200 text-[10px] font-bold px-2.5 py-1 rounded-full whitespace-nowrap">🛡️ Scam Safety</button>
+            <button onclick="setAiPrompt('Best riverside coffee cafes in Kanchanaburi near River Kwai bridge')" class="bg-purple-50 text-purple-700 hover:bg-purple-100 border border-purple-200 text-[10px] font-bold px-2.5 py-1 rounded-full whitespace-nowrap">☕ River Cafes</button>
+          </div>
+
+          <textarea id="ai-prompt-input" rows="3" placeholder="Ask anything about your Thailand trip..." class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs focus:outline-none focus:border-purple-500 resize-none mb-2"></textarea>
+          
+          <div class="flex items-center justify-between">
+            <label class="flex items-center gap-1.5 text-[11px] text-slate-600 font-medium cursor-pointer">
+              <input type="checkbox" id="ai-use-search" checked class="rounded text-purple-600 focus:ring-purple-500">
+              <span>Google Search Grounding</span>
+            </label>
+
+            <button onclick="askGeminiConcierge()" id="ai-ask-btn" class="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-bold text-xs px-4 py-2 rounded-xl shadow-md transition-all flex items-center gap-1">
+              <span>Ask AI</span>
+            </button>
+          </div>
+        </div>
+
+        <div id="ai-response-card" class="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm hidden">
+          <div class="flex justify-between items-center mb-2 pb-2 border-b border-slate-100">
+            <div class="text-xs font-bold text-purple-900 flex items-center gap-1"><span>💡</span> AI Answer</div>
+            <button onclick="copyAiResponse()" class="text-[10px] font-bold text-purple-600 hover:text-purple-800 bg-purple-50 px-2 py-0.5 rounded">Copy</button>
+          </div>
+          <div id="ai-response-text" class="text-xs text-slate-700 leading-relaxed space-y-2"></div>
+        </div>
+      </div>
+
+      <!-- SUB-TAB 2: THAI VOICE TTS SPEECH -->
+      <div id="ai-translator" class="ai-sub-content hidden space-y-3">
+        <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm">
+          <h3 class="font-extrabold text-slate-800 text-sm mb-1 flex items-center gap-2"><span>🗣️</span> Instant Thai Phrasebook & Voice</h3>
+          <p class="text-xs text-slate-500 mb-3">Translate English phrases to Thai script and speak to locals using Gemini TTS.</p>
+
+          <div class="grid grid-cols-2 gap-2 mb-3">
+            <button onclick="translateAndSpeak('How much is this? Can you give a discount?')" class="text-left bg-slate-50 hover:bg-purple-50 p-2 rounded-xl border border-slate-200 transition-all">
+              <div class="text-[11px] font-bold text-slate-800">🛍️ Bargaining</div>
+              <div class="text-[10px] text-slate-500 truncate">How much / discount?</div>
+            </button>
+            <button onclick="translateAndSpeak('Not spicy please, and no pork.')" class="text-left bg-slate-50 hover:bg-purple-50 p-2 rounded-xl border border-slate-200 transition-all">
+              <div class="text-[11px] font-bold text-slate-800">🌶️ Food Order</div>
+              <div class="text-[10px] text-slate-500 truncate">Not spicy / No pork</div>
+            </button>
+            <button onclick="translateAndSpeak('Please turn on the meter or take me to Suvarnabhumi Airport.')" class="text-left bg-slate-50 hover:bg-purple-50 p-2 rounded-xl border border-slate-200 transition-all">
+              <div class="text-[11px] font-bold text-slate-800">🚕 Taxi Meter</div>
+              <div class="text-[10px] text-slate-500 truncate">Use meter / Airport drop</div>
+            </button>
+            <button onclick="translateAndSpeak('Where is the restroom / toilet?')" class="text-left bg-slate-50 hover:bg-purple-50 p-2 rounded-xl border border-slate-200 transition-all">
+              <div class="text-[11px] font-bold text-slate-800">🚻 Bathroom</div>
+              <div class="text-[10px] text-slate-500 truncate">Where is bathroom?</div>
+            </button>
+          </div>
+
+          <input type="text" id="custom-thai-phrase" placeholder="Type custom English sentence..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-purple-500 mb-2">
+          <button onclick="translateAndSpeakCustom()" id="tts-gen-btn" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs py-2.5 rounded-xl transition-all shadow-sm">
+            <span>🔊 Generate Thai Voice & Play</span>
+          </button>
+        </div>
+
+        <div id="tts-output-card" class="bg-gradient-to-br from-purple-50 to-indigo-50 rounded-2xl p-4 border border-purple-200 shadow-sm hidden">
+          <div class="text-[10px] font-bold text-purple-700 uppercase tracking-wider mb-1">Thai Translation</div>
+          <div id="tts-thai-script" class="text-2xl font-black text-slate-900 mb-1">--</div>
+          <div id="tts-thai-phonetic" class="text-xs font-semibold text-purple-800 italic mb-3">--</div>
+          
+          <button onclick="playLastGeneratedAudio()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs py-2.5 rounded-xl shadow-md flex items-center justify-center gap-1">
+            <span>🔊 Replay Thai Audio For Driver/Vendor</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- SUB-TAB 3: AI MENU SCANNER -->
+      <div id="ai-scanner" class="ai-sub-content hidden space-y-3">
+        <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm">
+          <h3 class="font-extrabold text-slate-800 text-sm mb-1 flex items-center gap-2"><span>📸</span> Scan Thai Menu or Sign</h3>
+          <p class="text-xs text-slate-500 mb-3">Snap a photo of Thai writing to translate food items, ingredients & prices.</p>
+
+          <div class="border-2 border-dashed border-slate-200 rounded-xl p-4 text-center bg-slate-50">
+            <input type="file" id="menu-image-input" accept="image/*" class="hidden" onchange="handleMenuImageSelect(event)">
+            <label for="menu-image-input" class="cursor-pointer block">
+              <div class="w-10 h-10 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center mx-auto mb-1 text-lg">📷</div>
+              <div class="text-xs font-bold text-slate-800">Choose Photo or Take Picture</div>
+              <div class="text-[10px] text-slate-400">Supports JPG & PNG images</div>
+            </label>
+          </div>
+
+          <div id="image-preview-container" class="hidden relative rounded-xl overflow-hidden border border-slate-200 max-h-48 mt-2">
+            <img id="image-preview" src="" class="w-full object-cover">
+            <button onclick="clearMenuImage()" class="absolute top-2 right-2 bg-slate-900/80 text-white rounded-full w-6 h-6 text-xs">✕</button>
+          </div>
+
+          <button onclick="analyzeMenuWithGemini()" id="vision-analyze-btn" class="w-full bg-purple-600 text-white font-bold text-xs py-2.5 rounded-xl mt-3 hidden">
+            <span>✨ Analyze Menu with Gemini AI</span>
+          </button>
+        </div>
+
+        <div id="vision-result-card" class="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm hidden">
+          <div class="text-xs font-bold text-purple-900 mb-2 pb-2 border-b border-slate-100">🍽️ Dish Breakdown & Price Hints</div>
+          <div id="vision-result-text" class="text-xs text-slate-700 leading-relaxed space-y-2"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- TAB 5: TASKS & PACKING CHECKLIST -->
+    <div id="tab-tasks" class="tab-content hidden space-y-4">
+      
+      <!-- Progress Bar -->
+      <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm">
+        <div class="flex justify-between items-center text-xs font-bold mb-1">
+          <span class="text-slate-800">Packing & Prep Progress</span>
+          <span id="task-progress-pct" class="text-brand-600">0%</span>
+        </div>
+        <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+          <div id="task-progress-bar" class="bg-gradient-to-r from-brand-500 to-emerald-500 h-2 transition-all duration-500" style="width: 0%"></div>
+        </div>
+      </div>
+
+      <!-- Checklist Items -->
+      <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm">
+        <div class="flex justify-between items-center mb-3">
+          <h3 class="font-extrabold text-slate-800 text-sm">Essential Items & Documents</h3>
+          <button onclick="resetTasks()" class="text-[10px] text-slate-400 hover:text-slate-600">Reset</button>
+        </div>
+
+        <div id="task-list-items" class="space-y-2 text-xs">
+          <!-- Dynamically generated via JS -->
+        </div>
+
+        <div class="mt-4 pt-3 border-t border-slate-100 flex gap-2">
+          <input type="text" id="new-task-input" placeholder="Add custom item (e.g. Earplugs)..." class="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-brand-500">
+          <button onclick="addCustomTask()" class="bg-brand-600 text-white font-bold px-3 py-2 rounded-xl text-xs active:scale-95">+ Add</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- TAB 6: BUDGET TRACKER & EXPENSE LOG -->
+    <div id="tab-budget" class="tab-content hidden space-y-4">
+      
+      <!-- Budget Summary Card -->
+      <div class="bg-slate-900 text-white rounded-2xl p-4 shadow-md border border-slate-800">
+        <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Estimated Budget vs Spent</div>
+        <div class="flex justify-between items-baseline mb-2">
+          <div class="text-2xl font-black text-emerald-400" id="total-spent-display">₹0</div>
+          <div class="text-xs text-slate-400">Target: ₹75,000 - ₹95,000</div>
+        </div>
+      </div>
+
+      <!-- Quick Expense Logger -->
+      <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm">
+        <h3 class="font-bold text-slate-800 text-sm mb-3">Log Expense On-the-Go</h3>
+        <div class="grid grid-cols-2 gap-2 mb-2">
+          <input type="text" id="expense-title" placeholder="e.g. Pad Thai / Taxi" class="bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs focus:outline-none">
+          <input type="number" id="expense-amount" placeholder="Amount (INR ₹)" class="bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs focus:outline-none">
+        </div>
+        <button onclick="addCustomExpense()" class="w-full bg-brand-600 text-white font-bold py-2.5 rounded-xl text-xs shadow-sm active:scale-95">+ Add Expense Entry</button>
+
+        <div id="custom-expense-log" class="mt-4 space-y-2 border-t border-slate-100 pt-3 text-xs max-h-48 overflow-y-auto">
+          <!-- Logged entries -->
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- FLOATING DOCK NAVIGATION -->
+  <nav class="fixed bottom-3 left-3 right-3 max-w-md mx-auto bg-slate-900/90 floating-dock border border-white/15 rounded-2xl p-1.5 z-50 flex justify-between items-center backdrop-blur-lg">
+    <button class="nav-btn flex-1 py-2 rounded-xl text-white bg-gradient-to-r from-brand-500 to-brand-600 flex flex-col items-center justify-center transition-all active:scale-95" onclick="switchTab('tab-flight', this)">
+      <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+      <span class="text-[10px] font-bold">Flight</span>
+    </button>
+    
+    <button class="nav-btn flex-1 py-2 rounded-xl text-slate-400 flex flex-col items-center justify-center transition-all active:scale-95" onclick="switchTab('tab-timeline', this)">
+      <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+      <span class="text-[10px] font-bold">Schedule</span>
+    </button>
+    
+    <button class="nav-btn flex-1 py-2 rounded-xl text-slate-400 flex flex-col items-center justify-center transition-all active:scale-95" onclick="switchTab('tab-maps', this)">
+      <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg>
+      <span class="text-[10px] font-bold">Explore</span>
+    </button>
+
+    <button class="nav-btn flex-1 py-2 rounded-xl text-slate-400 flex flex-col items-center justify-center transition-all active:scale-95" onclick="switchTab('tab-ai', this)">
+      <svg class="w-5 h-5 mb-0.5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+      <span class="text-[10px] font-bold">AI Agent</span>
+    </button>
+
+    <button class="nav-btn flex-1 py-2 rounded-xl text-slate-400 flex flex-col items-center justify-center transition-all active:scale-95" onclick="switchTab('tab-tasks', this)">
+      <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+      <span class="text-[10px] font-bold">Tasks</span>
+    </button>
+
+    <button class="nav-btn flex-1 py-2 rounded-xl text-slate-400 flex flex-col items-center justify-center transition-all active:scale-95" onclick="switchTab('tab-budget', this)">
+      <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+      <span class="text-[10px] font-bold">Budget</span>
+    </button>
+  </nav>
+
+  <!-- Currency Converter Modal -->
+  <div id="currency-modal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl p-5 max-w-xs w-full shadow-2xl relative">
+      <button onclick="closeCurrencyModal()" class="absolute top-3 right-3 text-slate-400 text-lg">✕</button>
+      <h3 class="font-extrabold text-sm text-slate-800 mb-3 flex items-center gap-2"><span>🔱</span> Live THB ⇄ INR Converter</h3>
+      
+      <div class="space-y-3">
+        <div>
+          <label class="text-[10px] font-bold text-slate-500 uppercase">Thai Baht (THB ฿)</label>
+          <input type="number" id="thb-input" oninput="convertThbToInr()" placeholder="100" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-sm font-bold focus:outline-none">
+        </div>
+        <div class="text-center text-xs font-bold text-brand-600">⬇⬆ Rate: 1 THB ≈ 2.45 INR</div>
+        <div>
+          <label class="text-[10px] font-bold text-slate-500 uppercase">Indian Rupee (INR ₹)</label>
+          <input type="number" id="inr-input" oninput="convertInrToThb()" placeholder="245" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-sm font-bold focus:outline-none">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast">Notification</div>
+
+  <script>
+    // --- APP DATA COLLECTIONS ---
+    const itineraryData = [
+      {
+        day: "Day 1", date: "Sun, 02 Aug 2026", title: "Arrival & Jodd Fairs Night Market", stay: "Bangkok", cost: "₹4,500",
+        activities: "Fly BOM→BKK (13:05-19:15), Immigration, Airport Rail Link, Forex, Check-in, Jodd Fairs Street Food.",
+        mapQuery: "Jodd Fairs Night Market Bangkok"
+      },
+      {
+        day: "Day 2", date: "Mon, 03 Aug 2026", title: "Scenic Drive to Kanchanaburi", stay: "Kanchanaburi", cost: "₹5,000",
+        activities: "Drive to Kanchanaburi (3h), River Kwai Railway Bridge walk, Riverside Cafe chill, JJ Night Market.",
+        mapQuery: "River Kwai Bridge Kanchanaburi"
+      },
+      {
+        day: "Day 3", date: "Tue, 04 Aug 2026", title: "Business Meetings & Erawan Waterfalls", stay: "Kanchanaburi", cost: "₹3,500",
+        activities: "Work/Meetings in morning, Erawan National Park 7-Tier Waterfalls trek & swim, Dinner by Kwai River.",
+        mapQuery: "Erawan National Park"
+      },
+      {
+        day: "Day 4", date: "Wed, 05 Aug 2026", title: "Suan Phueng Mountain Retreat", stay: "Suan Phueng", cost: "₹4,000",
+        activities: "Drive to Suan Phueng mist valley (2h), PASOSA Vineyard wine tasting, Khao Laem Viewpoint, Cozy resort stay.",
+        mapQuery: "Suan Phueng Ratchaburi"
+      },
+      {
+        day: "Day 5", date: "Thu, 06 Aug 2026", title: "Offbeat Canyons & Hot Springs", stay: "Suan Phueng", cost: "₹2,500",
+        activities: "Bo Klueng Natural Hot Springs, Hin Khao Ngu Stone Park lake boardwalk, Huai Nam Sai Mon bamboo village.",
+        mapQuery: "Hin Khao Ngu Park Ratchaburi"
+      },
+      {
+        day: "Day 6", date: "Fri, 07 Aug 2026", title: "Amphawa Canal & Firefly Boat Ride", stay: "Amphawa", cost: "₹4,000",
+        activities: "Drive to Amphawa, Wat Bang Kung (tree-wrapped temple), Floating Market food crawl, Night firefly boat trip.",
+        mapQuery: "Amphawa Floating Market"
+      },
+      {
+        day: "Day 7", date: "Sat, 08 Aug 2026", title: "Bang Kachao Jungle & ICONSIAM", stay: "Bangkok", cost: "₹4,500",
+        activities: "Bang Kachao Green Lung bicycle tour, Chao Phraya Boat to ICONSIAM mall & river fountain show, Chinatown night food.",
+        mapQuery: "ICONSIAM Bangkok"
+      },
+      {
+        day: "Day 8", date: "Sun, 09 Aug 2026", title: "Vintage Alleys, Shopping & Thai Massage", stay: "Bangkok", cost: "₹6,000",
+        activities: "Talat Noi riverfront vintage coffee alleys, Platinum Fashion Mall shopping, Traditional Massage, Sky Bar rooftop.",
+        mapQuery: "Talat Noi Bangkok"
+      },
+      {
+        day: "Day 9", date: "Mon, 10 Aug 2026", title: "Departure to Mumbai", stay: "Home", cost: "-",
+        activities: "Pack luggage, Suvarnabhumi Airport check-in by 10:30 AM, Flight BKK→BOM (13:50-17:10).",
+        mapQuery: "Suvarnabhumi Airport"
+      }
+    ];
+
+    const destinationSpots = [
+      {
+        name: "Hin Khao Ngu Stone Park", region: "Suan Phueng", isOffbeat: true,
+        desc: "Stunning emerald lake nestled inside ancient limestone quarry canyons with a high wooden suspension bridge.",
+        photoSpot: "Center of the wooden bridge looking at the limestone reflections.",
+        secretTip: "Rent a 50 THB swan pedal boat at sunset when light hits the canyon.",
+        mapQuery: "Khao Ngu Stone Park Ratchaburi"
+      },
+      {
+        name: "Wat Bang Kung (Tree Shrine)", region: "Amphawa", isOffbeat: true,
+        desc: "Ancient Ayutthaya-era chapel completely swallowed by massive Banyan and Bodhi tree roots.",
+        photoSpot: "Framed entrance through the thick hanging banyan root arches.",
+        secretTip: "Visit around 4 PM right before taking the Amphawa firefly boat.",
+        mapQuery: "Wat Bang Kung Samut Songkhram"
+      },
+      {
+        name: "Erawan National Park", region: "Kanchanaburi", isOffbeat: false,
+        desc: "7-tiered emerald green waterfall cascade inside tropical rainforest. Tier 4 & 5 are best for swimming.",
+        photoSpot: "Tier 2 waterfall pool with natural stone slides.",
+        secretTip: "Fish will nibble on your toes for a free natural fish spa!",
+        mapQuery: "Erawan Waterfall Kanchanaburi"
+      },
+      {
+        name: "Huai Nam Sai Mon Village", region: "Suan Phueng", isOffbeat: true,
+        desc: "Mountain Mon ethnic village with bamboo bridges across fresh mountain streams and local handicrafts.",
+        photoSpot: "Walking across the bamboo woven bridge with lush forest backdrop.",
+        secretTip: "Try the fresh roasted bamboo drip coffee.",
+        mapQuery: "Huai Nam Sai Village Suan Phueng"
+      },
+      {
+        name: "Bang Kachao (Bangkok Jungle)", region: "Bangkok", isOffbeat: true,
+        desc: "Bangkok's 'Green Lung' island in the Chao Phraya river. No skyscrapers, only elevated mangrove bike paths.",
+        photoSpot: "Biking along elevated jungle wooden boardwalks.",
+        secretTip: "Rent a bicycle for 50 THB at Klong Toey pier ferry crossing.",
+        mapQuery: "Bang Kachao Bangkok"
+      },
+      {
+        name: "Jodd Fairs Night Market", region: "Bangkok", isOffbeat: false,
+        desc: "Vibrant night market famous for volcano spicy pork ribs (Leng Saab), mango sticky rice, and fashion.",
+        photoSpot: "Under the white tent canopy holding giant fruit smoothies.",
+        secretTip: "Go around 6:30 PM to grab a table before peak crowd.",
+        mapQuery: "Jodd Fairs Rama 9"
+      }
+    ];
+
+    const defaultTasks = [
+      "Passport (Valid 6+ months)", "Thailand Pass / Visa Details", "Forex Card / Cash (THB)",
+      "Universal Adapter", "Power Bank (In Hand Bag)", "Rain Jacket / Umbrella",
+      "Swimming Trunks / Clothes", "Comfortable Walking Shoes", "Insect Repellent Spray"
+    ];
+
+    // --- GEMINI API CONSTANTS ---
+    const GEMINI_TEXT_MODEL = 'gemini-3-flash-preview';
+    const GEMINI_TTS_MODEL = 'gemini-2.5-flash-preview-tts';
+    let lastGeneratedAudioUrl = null;
+    let selectedImageBase64 = null;
+    let selectedImageMime = null;
+
+    // --- STREAMING_CHUNK:Implementing helper functions, countdowns, and UI state switches... ---
+    function switchTab(tabId, btn) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.nav-btn').forEach(b => {
+        b.className = "nav-btn flex-1 py-2 rounded-xl text-slate-400 flex flex-col items-center justify-center transition-all active:scale-95";
+      });
+
+      document.getElementById(tabId).classList.remove('hidden');
+      btn.className = "nav-btn flex-1 py-2 rounded-xl text-white bg-gradient-to-r from-brand-500 to-brand-600 shadow-md flex flex-col items-center justify-center transition-all active:scale-95";
+
+      if (navigator.vibrate) navigator.vibrate(10);
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.innerText = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 3000);
+    }
+
+    function copyPNR() {
+      const el = document.createElement('textarea');
+      el.value = "18Z1HC";
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand('copy');
+      document.body.removeChild(el);
+      showToast("PNR 18Z1HC copied to clipboard!");
+    }
+
+    // Countdown Timer Logic
+    function startCountdown() {
+      const target = new Date("2026-08-02T13:05:00+05:30").getTime();
+      function update() {
+        const now = new Date().getTime();
+        const diff = target - now;
+        if (diff <= 0) {
+          document.getElementById('countdown-timer').innerText = "TRIP TODAY!";
+          return;
+        }
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        document.getElementById('countdown-timer').innerText = `${days}d ${hours}h`;
+      }
+      update();
+      setInterval(update, 60000);
+    }
+
+    // --- RENDER ITINERARY ACCORDION ---
+    function renderItinerary() {
+      const container = document.getElementById('timeline-accordion-container');
+      container.innerHTML = itineraryData.map((item, idx) => `
+        <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+          <button onclick="toggleDayAccordion('day-body-${idx}')" class="w-full p-3.5 text-left flex justify-between items-center bg-slate-50/80 hover:bg-slate-100/80 transition-colors">
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="text-[10px] font-black bg-brand-600 text-white px-2 py-0.5 rounded-full">${item.day}</span>
+                <span class="text-xs font-bold text-slate-700">${item.date}</span>
+              </div>
+              <div class="font-extrabold text-xs text-slate-900 mt-1">${item.title}</div>
+            </div>
+            <span class="text-slate-400 text-xs">▼</span>
+          </button>
+          
+          <div id="day-body-${idx}" class="p-3.5 border-t border-slate-100 text-xs space-y-2 hidden">
+            <p class="text-slate-600 leading-relaxed">${item.activities}</p>
+            <div class="flex justify-between items-center pt-2 text-[11px]">
+              <span class="text-slate-500">Stay: <strong>${item.stay}</strong> | Est: <strong>${item.cost}</strong></span>
+              <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.mapQuery)}" target="_blank" class="text-brand-600 font-bold hover:underline">
+                📍 Map Dir ➔
+              </a>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function toggleDayAccordion(id) {
+      const el = document.getElementById(id);
+      el.classList.toggle('hidden');
+    }
+
+    function toggleAllDays() {
+      const items = document.querySelectorAll('[id^="day-body-"]');
+      const anyHidden = Array.from(items).some(el => el.classList.contains('hidden'));
+      items.forEach(el => anyHidden ? el.classList.remove('hidden') : el.classList.add('hidden'));
+    }
+
+    // --- STREAMING_CHUNK:Rendering destination cards and search filters... ---
+    function renderDestinations(filter = 'all', keyword = '') {
+      const container = document.getElementById('destination-cards-list');
+      let filtered = destinationSpots;
+
+      if (filter === 'offbeat') filtered = filtered.filter(s => s.isOffbeat);
+      else if (filter !== 'all') filtered = filtered.filter(s => s.region === filter);
+
+      if (keyword) {
+        const kw = keyword.toLowerCase();
+        filtered = filtered.filter(s => s.name.toLowerCase().includes(kw) || s.desc.toLowerCase().includes(kw));
+      }
+
+      container.innerHTML = filtered.map(spot => `
+        <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm space-y-2">
+          <div class="flex justify-between items-start">
+            <div>
+              <div class="flex items-center gap-1.5">
+                ${spot.isOffbeat ? '<span class="bg-purple-100 text-purple-700 text-[9px] font-bold px-2 py-0.5 rounded-full">✨ Offbeat Gem</span>' : ''}
+                <span class="bg-slate-100 text-slate-600 text-[9px] font-semibold px-2 py-0.5 rounded-full">${spot.region}</span>
+              </div>
+              <h3 class="font-extrabold text-sm text-slate-800 mt-1">${spot.name}</h3>
+            </div>
+          </div>
+
+          <p class="text-xs text-slate-600 leading-relaxed">${spot.desc}</p>
+          
+          <div class="bg-slate-50 rounded-xl p-2.5 text-[11px] space-y-1">
+            <div>📸 <strong>Photo Spot:</strong> ${spot.photoSpot}</div>
+            <div>💡 <strong>Insider Secret:</strong> ${spot.secretTip}</div>
+          </div>
+
+          <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(spot.mapQuery)}" target="_blank" class="block text-center bg-brand-50 hover:bg-brand-100 text-brand-700 font-bold text-xs py-2 rounded-xl transition-colors">
+            📍 Open Location in Google Maps
+          </a>
+        </div>
+      `).join('');
+    }
+
+    function setDestFilter(filter) {
+      document.querySelectorAll('.dest-filter-btn').forEach(btn => btn.className = 'dest-filter-btn bg-slate-100 text-slate-600 font-semibold px-3 py-1 rounded-full whitespace-nowrap');
+      event.target.className = 'dest-filter-btn active bg-brand-600 text-white font-bold px-3 py-1 rounded-full whitespace-nowrap';
+      renderDestinations(filter, document.getElementById('dest-search').value);
+    }
+
+    function filterDestinations() {
+      const activeBtn = document.querySelector('.dest-filter-btn.active');
+      const filter = activeBtn ? activeBtn.innerText.toLowerCase() : 'all';
+      renderDestinations('all', document.getElementById('dest-search').value);
+    }
+
+    // --- STREAMING_CHUNK:Implementing Gemini AI chat, speech TTS and image vision handling... ---
+    async function fetchGeminiWithRetry(url, payload, maxRetries = 3) {
+      let delay = 1000;
+      for (let attempt = 0; attempt < maxRetries; attempt++) {
+        try {
+          const response = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          return await response.json();
+        } catch (err) {
+          if (attempt === maxRetries - 1) throw err;
+          await new Promise(res => setTimeout(res, delay));
+          delay *= 2;
+        }
+      }
+    }
+
+    function switchAiSubTab(subTabId) {
+      document.querySelectorAll('.ai-sub-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.ai-sub-btn').forEach(btn => {
+        btn.className = 'ai-sub-btn bg-white/10 hover:bg-white/20 text-purple-200 text-[11px] font-semibold py-1.5 rounded-lg transition-all';
+      });
+
+      document.getElementById(subTabId).classList.remove('hidden');
+      const activeBtnId = subTabId === 'ai-concierge' ? 'ai-tab-btn-concierge' : (subTabId === 'ai-translator' ? 'ai-tab-btn-translator' : 'ai-tab-btn-scanner');
+      document.getElementById(activeBtnId).className = 'ai-sub-btn bg-white/20 text-white text-[11px] font-bold py-1.5 rounded-lg border border-white/20 transition-all';
+    }
+
+    function setAiPrompt(text) {
+      document.getElementById('ai-prompt-input').value = text;
+    }
+
+    async function askGeminiConcierge() {
+      const prompt = document.getElementById('ai-prompt-input').value.trim();
+      if (!prompt) return showToast("Enter a query first!");
+
+      const btn = document.getElementById('ai-ask-btn');
+      const card = document.getElementById('ai-response-card');
+      const resText = document.getElementById('ai-response-text');
+
+      btn.disabled = true;
+      btn.innerText = "Asking...";
+      card.classList.remove('hidden');
+      resText.innerHTML = "<div class='text-slate-400 italic'>Consulting Gemini AI...</div>";
+
+      const useSearch = document.getElementById('ai-use-search').checked;
+      const apiKey = "";
+      const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_TEXT_MODEL}:generateContent?key=${apiKey}`;
+
+      const payload = {
+        contents: [{ role: "user", parts: [{ text: prompt }] }],
+        systemInstruction: { parts: [{ text: "You are an expert Thailand trip concierge for Rishabh and Mandeep. Provide practical advice." }] }
+      };
+
+      if (useSearch) payload.tools = [{ "google_search": {} }];
+
+      try {
+        const result = await fetchGeminiWithRetry(apiUrl, payload);
+        const text = result.candidates?.[0]?.content?.parts?.[0]?.text;
+        if (text) {
+          resText.innerHTML = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+        } else {
+          resText.innerHTML = "No response generated.";
+        }
+      } catch (err) {
+        resText.innerHTML = "Error: " + err.message;
+      } finally {
+        btn.disabled = false;
+        btn.innerText = "Ask AI";
+      }
+    }
+
+    function copyAiResponse() {
+      const text = document.getElementById('ai-response-text').innerText;
+      if (!text) return;
+      const el = document.createElement('textarea');
+      el.value = text;
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand('copy');
+      document.body.removeChild(el);
+      showToast("Copied AI answer!");
+    }
+
+    async function translateAndSpeak(englishText) {
+      document.getElementById('custom-thai-phrase').value = englishText;
+      await translateAndSpeakCustom();
+    }
+
+    async function translateAndSpeakCustom() {
+      const phrase = document.getElementById('custom-thai-phrase').value.trim();
+      if (!phrase) return showToast("Enter text to translate!");
+
+      const btn = document.getElementById('tts-gen-btn');
+      const card = document.getElementById('tts-output-card');
+      const scriptEl = document.getElementById('tts-thai-script');
+      const phoneticEl = document.getElementById('tts-thai-phonetic');
+
+      btn.disabled = true;
+      btn.innerText = "Generating Thai Voice...";
+      card.classList.remove('hidden');
+      scriptEl.innerText = "Translating...";
+
+      const apiKey = "";
+      const translateUrl = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_TEXT_MODEL}:generateContent?key=${apiKey}`;
+      
+      try {
+        const transResult = await fetchGeminiWithRetry(translateUrl, {
+          contents: [{ role: "user", parts: [{ text: `Translate to Thai script and phonetics: "${phrase}". Return JSON.` }] }],
+          generationConfig: {
+            responseMimeType: "application/json",
+            responseSchema: {
+              type: "OBJECT",
+              properties: { "thaiScript": { type: "STRING" }, "phonetic": { type: "STRING" } }
+            }
+          }
+        });
+
+        const jsonText = transResult.candidates?.[0]?.content?.parts?.[0]?.text;
+        const parsed = JSON.parse(jsonText || '{}');
+        const thaiScript = parsed.thaiScript || phrase;
+        
+        scriptEl.innerText = thaiScript;
+        phoneticEl.innerText = parsed.phonetic ? `Phonetic: "${parsed.phonetic}"` : "";
+
+        // TTS Audio Call
+        const ttsUrl = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_TTS_MODEL}:generateContent?key=${apiKey}`;
+        const ttsResult = await fetchGeminiWithRetry(ttsUrl, {
+          contents: [{ parts: [{ text: `Say in clear Thai: ${thaiScript}` }] }],
+          generationConfig: {
+            responseModalities: ["AUDIO"],
+            speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: "Aoede" } } }
+          },
+          model: GEMINI_TTS_MODEL
+        });
+
+        const part = ttsResult?.candidates?.[0]?.content?.parts?.[0];
+        if (part?.inlineData?.data) {
+          playPcmAudio(part.inlineData.data, part.inlineData.mimeType);
+        }
+      } catch (err) {
+        scriptEl.innerText = "Error generating audio";
+      } finally {
+        btn.disabled = false;
+        btn.innerText = "🔊 Generate Thai Voice & Play";
+      }
+    }
+
+    function playPcmAudio(base64Data, mimeType) {
+      const sampleRateMatch = mimeType ? mimeType.match(/rate=(\d+)/) : null;
+      const sampleRate = sampleRateMatch ? parseInt(sampleRateMatch[1], 10) : 24000;
+
+      const binaryString = atob(base64Data);
+      const len = binaryString.length;
+      const bytes = new Uint8Array(len);
+      for (let i = 0; i < len; i++) bytes[i] = binaryString.charCodeAt(i);
+
+      const pcm16 = new Int16Array(bytes.buffer);
+      const wavBlob = pcm16ToWavBlob(pcm16, sampleRate);
+
+      if (lastGeneratedAudioUrl) URL.revokeObjectURL(lastGeneratedAudioUrl);
+      lastGeneratedAudioUrl = URL.createObjectURL(wavBlob);
+
+      const audio = new Audio(lastGeneratedAudioUrl);
+      audio.play().catch(e => console.log('Audio note:', e));
+    }
+
+    function playLastGeneratedAudio() {
+      if (lastGeneratedAudioUrl) {
+        new Audio(lastGeneratedAudioUrl).play();
+      } else showToast("No audio ready yet!");
+    }
+
+    function pcm16ToWavBlob(pcm16Array, sampleRate) {
+      const numChannels = 1;
+      const bytesPerSample = 2;
+      const blockAlign = numChannels * bytesPerSample;
+      const byteRate = sampleRate * blockAlign;
+      const dataSize = pcm16Array.length * bytesPerSample;
+      const buffer = new ArrayBuffer(44 + dataSize);
+      const view = new DataView(buffer);
+
+      function writeStr(offset, str) {
+        for (let i = 0; i < str.length; i++) view.setUint8(offset + i, str.charCodeAt(i));
+      }
+
+      writeStr(0, 'RIFF');
+      view.setUint32(4, 36 + dataSize, true);
+      writeStr(8, 'WAVE');
+      writeStr(12, 'fmt ');
+      view.setUint32(16, 16, true);
+      view.setUint16(20, 1, true);
+      view.setUint16(22, numChannels, true);
+      view.setUint32(24, sampleRate, true);
+      view.setUint32(28, byteRate, true);
+      view.setUint16(32, blockAlign, true);
+      view.setUint16(34, 16, true);
+      writeStr(36, 'data');
+      view.setUint32(40, dataSize, true);
+
+      let offset = 44;
+      for (let i = 0; i < pcm16Array.length; i++, offset += 2) {
+        view.setInt16(offset, pcm16Array[i], true);
+      }
+      return new Blob([buffer], { type: 'audio/wav' });
+    }
+
+    function handleMenuImageSelect(evt) {
+      const file = evt.target.files[0];
+      if (!file) return;
+      selectedImageMime = file.type || 'image/jpeg';
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        selectedImageBase64 = e.target.result.split(',')[1];
+        document.getElementById('image-preview').src = e.target.result;
+        document.getElementById('image-preview-container').classList.remove('hidden');
+        document.getElementById('vision-analyze-btn').classList.remove('hidden');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function clearMenuImage() {
+      selectedImageBase64 = null;
+      document.getElementById('image-preview-container').classList.add('hidden');
+      document.getElementById('vision-analyze-btn').classList.add('hidden');
+    }
+
+    async function analyzeMenuWithGemini() {
+      if (!selectedImageBase64) return;
+      const btn = document.getElementById('vision-analyze-btn');
+      const card = document.getElementById('vision-result-card');
+      const resText = document.getElementById('vision-result-text');
+
+      btn.disabled = true;
+      btn.innerText = "Analyzing Photo...";
+      card.classList.remove('hidden');
+      resText.innerHTML = "Examining menu image...";
+
+      const apiKey = "";
+      const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_TEXT_MODEL}:generateContent?key=${apiKey}`;
+
+      try {
+        const result = await fetchGeminiWithRetry(apiUrl, {
+          contents: [{
+            role: "user",
+            parts: [
+              { text: "Analyze this Thai menu/sign image. List dishes in English, ingredients, pork/veg status and price estimates." },
+              { inlineData: { mimeType: selectedImageMime, data: selectedImageBase64 } }
+            ]
+          }]
+        });
+        const text = result.candidates?.[0]?.content?.parts?.[0]?.text;
+        resText.innerHTML = text ? text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>') : "Unable to analyze.";
+      } catch (err) {
+        resText.innerHTML = "Error: " + err.message;
+      } finally {
+        btn.disabled = false;
+        btn.innerText = "✨ Analyze Menu with Gemini AI";
+      }
+    }
+
+    // --- STREAMING_CHUNK:Managing task checklists, currency conversions, and offline state... ---
+    function renderTasks() {
+      const container = document.getElementById('task-list-items');
+      const savedTasks = JSON.parse(localStorage.getItem('thailand_tasks') || '[]');
+      const allTasks = savedTasks.length > 0 ? savedTasks : defaultTasks.map(t => ({ text: t, done: false }));
+
+      if (savedTasks.length === 0) localStorage.setItem('thailand_tasks', JSON.stringify(allTasks));
+
+      let completedCount = 0;
+      container.innerHTML = allTasks.map((t, i) => {
+        if (t.done) completedCount++;
+        return `
+          <label class="flex items-center justify-between p-2 rounded-xl bg-slate-50 border border-slate-100 cursor-pointer">
+            <span class="${t.done ? 'line-through text-slate-400' : 'text-slate-700 font-medium'}">${t.text}</span>
+            <input type="checkbox" ${t.done ? 'checked' : ''} onchange="toggleTask(${i})" class="rounded text-brand-600 focus:ring-brand-500 w-4 h-4">
+          </label>
+        `;
+      }).join('');
+
+      const pct = Math.round((completedCount / allTasks.length) * 100) || 0;
+      document.getElementById('task-progress-pct').innerText = `${pct}%`;
+      document.getElementById('task-progress-bar').style.width = `${pct}%`;
+    }
+
+    function toggleTask(idx) {
+      const savedTasks = JSON.parse(localStorage.getItem('thailand_tasks') || '[]');
+      savedTasks[idx].done = !savedTasks[idx].done;
+      localStorage.setItem('thailand_tasks', JSON.stringify(savedTasks));
+      renderTasks();
+    }
+
+    function addCustomTask() {
+      const input = document.getElementById('new-task-input');
+      const text = input.value.trim();
+      if (!text) return;
+      const savedTasks = JSON.parse(localStorage.getItem('thailand_tasks') || '[]');
+      savedTasks.push({ text: text, done: false });
+      localStorage.setItem('thailand_tasks', JSON.stringify(savedTasks));
+      input.value = '';
+      renderTasks();
+      showToast("Custom task added!");
+    }
+
+    function resetTasks() {
+      localStorage.removeItem('thailand_tasks');
+      renderTasks();
+      showToast("Tasks reset!");
+    }
+
+    // Currency Converter
+    function openCurrencyModal() { document.getElementById('currency-modal').classList.remove('hidden'); }
+    function closeCurrencyModal() { document.getElementById('currency-modal').classList.add('hidden'); }
+    function convertThbToInr() {
+      const thb = parseFloat(document.getElementById('thb-input').value) || 0;
+      document.getElementById('inr-input').value = Math.round(thb * 2.45);
+    }
+    function convertInrToThb() {
+      const inr = parseFloat(document.getElementById('inr-input').value) || 0;
+      document.getElementById('thb-input').value = (inr / 2.45).toFixed(1);
+    }
+
+    // Expense Log
+    function renderExpenses() {
+      const container = document.getElementById('custom-expense-log');
+      const expenses = JSON.parse(localStorage.getItem('thailand_expenses') || '[]');
+      let total = 0;
+
+      container.innerHTML = expenses.map(e => {
+        total += parseFloat(e.amount) || 0;
+        return `
+          <div class="flex justify-between items-center bg-slate-50 p-2 rounded-xl border border-slate-100">
+            <span class="font-medium text-slate-700">${e.title}</span>
+            <span class="font-bold text-emerald-600">₹${e.amount}</span>
+          </div>
+        `;
+      }).join('');
+
+      document.getElementById('total-spent-display').innerText = `₹${total.toLocaleString('en-IN')}`;
+    }
+
+    function addCustomExpense() {
+      const title = document.getElementById('expense-title').value.trim();
+      const amount = document.getElementById('expense-amount').value.trim();
+      if (!title || !amount) return showToast("Enter expense details!");
+
+      const expenses = JSON.parse(localStorage.getItem('thailand_expenses') || '[]');
+      expenses.push({ title, amount });
+      localStorage.setItem('thailand_expenses', JSON.stringify(expenses));
+
+      document.getElementById('expense-title').value = '';
+      document.getElementById('expense-amount').value = '';
+      renderExpenses();
+      showToast("Expense entry logged!");
+    }
+
+    // Network Online/Offline
+    window.addEventListener('online', () => {
+      document.getElementById('net-status').innerHTML = "🟢 Online";
+      document.getElementById('net-status').className = "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[9px] font-extrabold px-2 py-0.5 rounded-full";
+    });
+    window.addEventListener('offline', () => {
+      document.getElementById('net-status').innerHTML = "⚡ Offline";
+      document.getElementById('net-status').className = "bg-amber-500/20 text-amber-400 border border-amber-500/30 text-[9px] font-extrabold px-2 py-0.5 rounded-full";
+    });
+
+    // --- STREAMING_CHUNK:Registering Service Worker for full iOS offline support... ---
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        const swCode = `
+          const CACHE_NAME = 'thailand-app-v1';
+          self.addEventListener('install', e => {
+            e.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(['./'])));
+          });
+          self.addEventListener('fetch', e => {
+            e.respondWith(caches.match(e.request).then(res => res || fetch(e.request)));
+          });
+        `;
+        const blob = new Blob([swCode], { type: 'application/javascript' });
+        navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(() => {});
+      });
+    }
+
+    // INITIALIZE APP
+    window.onload = function() {
+      startCountdown();
+      renderItinerary();
+      renderDestinations();
+      renderTasks();
+      renderExpenses();
+    };
+  </script>
+</body>
+</html>
